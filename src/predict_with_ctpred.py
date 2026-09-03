@@ -6,16 +6,20 @@ import argparse
 import h5py
 import sys
 import os
+import pathlib
 from functools import reduce
+
+script_dir = pathlib.Path(__file__).parent.resolve()
 
 parser = argparse.ArgumentParser(description='Predict with ctPred')
 parser.add_argument('--parameters_file', type=str, help='Path to the JSON parameter file')
 parser.add_argument('--individual', type=str, help='Path to the file for metrics. should be a tsv file.')
 # parser.add_argument('--epigenome_file', type=str, help='Path to the file for metrics. should be a tsv file.')
+parser.add_argument('--epigenome_directory', type=str, help='Directory containing {individual}.tss_epigenomes.hdf5 files')
 parser.add_argument('--output_directory', type=str, help='Output files path')
 args = parser.parse_args()
 
-sys.path.append('/beagle3/haky/users/temi/projects/dgtex/src/ctpred')
+sys.path.append(os.path.join(script_dir, 'ctpred'))
 import ctPred_utils
 
 # read in the parameters file
@@ -68,14 +72,14 @@ def predict_with_model(model, data, device = device):
         output = model(data)
     return(output)
 
-# with h5py.File('/scratch/midway3/temi/geuvadis_tss_epigenomes/HG00096.tss_epigenomes.hdf5', 'r') as read_File:
+# with h5py.File(os.path.join(args.epigenome_directory, 'HG00096.tss_epigenomes.hdf5'), 'r') as read_File:
 #      kk = list(read_File.keys())
 #      print(kk)
 #      print(read_File["metadata"][:])
 #      print(read_File['tss_epigenome']['epigenomes'][:, :].shape) # [:, :, :]
 
-def collect_epigenomes(individual):
-    with h5py.File(f"/scratch/midway3/temi/geuvadis_tss_epigenomes/{individual}.tss_epigenomes.hdf5", "r") as read_File:
+def collect_epigenomes(individual, epigenome_directory):
+    with h5py.File(os.path.join(epigenome_directory, f"{individual}.tss_epigenomes.hdf5"), "r") as read_File:
         epigenomes = read_File['tss_epigenome']['epigenomes'][:, :]
         epigenomes = torch.tensor(epigenomes)
         rownames = [ns.decode("utf-8") for ns in read_File["metadata"][:]] # a list
@@ -91,7 +95,7 @@ def collect_epigenomes(individual):
 #list_epigenomes = [collect_epigenomes(individual=indi) for indi in individuals]
 
 
-individual_data = collect_epigenomes(individual=args.individual)
+individual_data = collect_epigenomes(individual=args.individual, epigenome_directory=args.epigenome_directory)
 print(f"INFO - Collected all epigenomes for {args.individual}")
 output_predictions = list()
 for predictor in tup_parameters:

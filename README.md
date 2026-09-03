@@ -19,6 +19,7 @@ README for what's in it and why the large genomic data isn't).
   - `linearize_ctpred_per_tissue.sbatch` -- converts ctPred predictions into a linear (elastic-net) PredictDB model per context, via PredictDb-nextflow
   - `predict_grex_component.sbatch` -- predicts with the linearized PredictDB models via PrediXcan's `Predict.py`
   - `correlate_predictions_sqlite.{sbatch,R}` -- pairwise correlations between two SQLite prediction/observed-expression databases
+  - `aggregate_epigenomes.{sbatch,py}` -- aggregates per-locus Enformer predictions into a feature CSV. `aggregate_epigenomes.py` is copied in from [`TemiPete/Enpact`](https://github.com/TemiPete/Enpact) (`src/aggregate_epigenomes.py`), the repo that actually originated it -- not tracked as a submodule, just vendored. A near-identical `aggregate_epigenomes.sbatch` also still lives at `TFXcan/src/aggregate_epigenomes.sbatch`, left there untouched because three other analysis-temi notebooks (`2025-04-23-enhancers`, `2025-09-08-dGTEX-ctpred-training`, `2025-09-17-aGTEx-ctPred-training`) reference that exact path.
 
   The remaining scripts in `src/` (epigenome collection/merging, other correlation variants,
   plotting, UMAP) support the broader dgtex project and downstream analysis posts, not just this

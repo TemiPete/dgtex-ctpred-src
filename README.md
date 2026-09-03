@@ -1,12 +1,14 @@
-# dgtex
+# dgtex-ctpred-src
 
 Code backing the dGTEx/aGTEx ctPred training, linearization, and prediction pipeline used by
 [`analysis-temi/posts/2026-08-04-reproducing-dgtex-data`](https://github.com/hakyimlab/analysis-temi/tree/main/posts/2026-08-04-reproducing-dgtex-data),
 which orchestrates these scripts via `sbatch`.
 
-This repo is code-only -- no data, predictions, or figures are tracked (see `.gitignore`). Small
-reference/metadata inputs the notebook needs are bundled separately as `external_inputs.zip`
-(see that notebook's own README for what's in it and why the large genomic data isn't).
+This repo is code-only -- no data, predictions, or figures are tracked (see `.gitignore`). The
+working directory these scripts read/write from (`data/`, `predictions/`, `figures/`, etc.) is the
+separate, non-git `/beagle3/haky/users/temi/projects/dgtex` directory. Small reference/metadata
+inputs the notebook needs are bundled separately as `external_inputs.zip` (see that notebook's own
+README for what's in it and why the large genomic data isn't).
 
 ## Layout
 
@@ -30,4 +32,4 @@ reference/metadata inputs the notebook needs are bundled separately as `external
 
 The notebook points at this repo's `src/` via a single variable (`dgtex_src_directory`) near the
 top of `index.qmd` -- update that one variable if you clone this repo somewhere other than
-`/beagle3/haky/users/temi/projects/dgtex`.
+`/beagle3/haky/users/temi/projects/dgtex-ctpred-src`.

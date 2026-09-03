@@ -1,0 +1,19 @@
+# Code-only repo: this directory mixes ~100KB of scripts with many GB of
+# regenerated data/predictions/figures. Ignore everything by default, then
+# allow-list just the code (src/, configs/, envs/) below.
+/*
+
+!.gitignore
+!README.md
+!src/
+!configs/
+!envs/
+
+# runtime state / logs inside src/, not code
+/src/run/
+/src/testing_gpus.err
+/src/testing_gpus.out
+
+# compiled bytecode, not source
+__pycache__/
+*.pyc

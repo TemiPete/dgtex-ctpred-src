@@ -102,3 +102,46 @@ correlate_muscle <- function(configX, configY, matrix_names, collapse_age = TRUE
         na.omit() %>%
         as.data.table()
 }
+
+
+# calculate_spearman_correlation_of_two_matrices <- function(ma, mb, matrix_names = c('matrixA', 'matrixB')){
+
+#     if(all((nrow(ma) == nrow(mb)) & (ncol(ma) == ncol(mb)) & identical(rownames(ma), rownames(mb)) & identical(colnames(ma), colnames(mb)))){
+#         test_results <- mapply(function(x1, x2){
+#             test <- cor.test(x1, x2, method = 'spearman', exact=FALSE)
+#             return(c(test$p.value, test$estimate))
+#         }, split(ma, row(ma)), split(mb, row(mb)))
+#         #split(ma |> as.data.frame(), mb |> as.data.frame())
+    
+#         dt <- test_results %>% 
+#             t() %>% 
+#             as.data.frame() %>% 
+#             dplyr::mutate(gene = rownames(ma)) %>%
+#             stats::setNames(nm = c('spearman_pvalue', 'spearman_r', 'gene')) 
+#         dt$comparison <- paste0(matrix_names[1], ':', matrix_names[2])
+#         return(dt)
+#     } else {
+#         stop("ERROR - Dimensions or names of input matrices are not the same")
+#     }
+# }
+
+
+# calculate_spearman_correlation_of_two_matrices <- function(ma, mb, matrix_names = c('matrixA', 'matrixB')){
+
+#     if(all((nrow(ma) == nrow(mb)) & (ncol(ma) == ncol(mb)) & identical(rownames(ma), rownames(mb)) & identical(colnames(ma), colnames(mb)))){
+#         test_results <- mapply(function(x1, x2){
+#             test <- cor.test(x1, x2, method = 'spearman', exact = FALSE)
+#             return(c(test$p.value, test$estimate))
+#         }, split(ma, row(ma)), split(mb, row(mb)))
+
+#         dt <- test_results %>%
+#             t() %>%
+#             as.data.frame() %>%
+#             dplyr::mutate(gene = rownames(ma)) %>%
+#             stats::setNames(nm = c('spearman_pvalue', 'spearman_r', 'gene'))
+#         dt$comparison <- paste0(matrix_names[1], ':', matrix_names[2])
+#         return(dt)
+#     } else {
+#         stop("ERROR - Dimensions or names of input matrices are not the same")
+#     }
+# }

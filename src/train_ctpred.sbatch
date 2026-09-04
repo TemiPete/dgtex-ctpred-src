@@ -19,7 +19,7 @@ module load cudnn
 
 nvidia-smi
 
-python '/beagle3/haky/users/temi/projects/dgtex/src/ctpred/ctPred_train.py' \
+python '/beagle3/haky/users/temi/projects/dgtex-ctpred-src/src/ctpred/ctPred_train.py' \
     --parameters ${1} \
     --data_dir ${2} \
     --metrics_file ${3}

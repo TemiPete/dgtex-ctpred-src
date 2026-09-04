@@ -2,7 +2,7 @@
 
 
 
-import argparse, os, sys, multiprocessing, itertools
+import argparse, os, sys, multiprocessing
 import pandas as pd
 import numpy as np
 
@@ -34,7 +34,7 @@ except pd.errors.EmptyDataError as pe:
 if args.use_multiprocessing is True:
     print(f'INFO - Using multiprocessing to aggregate epigenomic predictions')
     pool = multiprocessing.Pool(32)
-    outputs_list = pool.starmap(extract_epigenome.aggregate_and_collect_epigenome, itertools.product(zip(query_loci, query_unique_ids), [args.reference_epigenome_directory], [args.pad_bins]))
+    outputs_list = pool.starmap(extract_epigenome.aggregate_and_collect_epigenome, [(q, qn, args.reference_epigenome_directory, args.pad_bins) for q, qn in zip(query_loci, query_unique_ids)])
     loci = [d['locus'] for d in outputs_list]
     names = [d['name'] for d in outputs_list]
     values = np.array([d['values'] for d in outputs_list])

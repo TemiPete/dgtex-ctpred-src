@@ -8,8 +8,8 @@
 
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem-per-cpu=8G
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=4G
 #SBATCH --job-name=aggregate_epigenomes
 #SBATCH --account=pi-haky
 #SBATCH --output=/beagle3/haky/users/temi/projects/dgtex/logs/aggregate_epigenomes.out
@@ -32,7 +32,7 @@ printf "Starting to run\n"
 source ~/.bashrc
 conda activate /beagle3/haky/users/shared_software/TFXcan-pipeline-tools
 
-agg_exec="$(dirname "$0")/aggregate_epigenomes.py"
+agg_exec="/beagle3/haky/users/temi/projects/dgtex-ctpred-src/src/aggregate_epigenomes.py"
 
 python3 ${agg_exec} \
     --loci_file ${loci_file} \

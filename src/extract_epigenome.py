@@ -80,8 +80,7 @@ def aggregate_and_collect_epigenome(locus, name, reference_epigenome_dir, pad_bi
     bins_coords = calculate_genomic_coordinates(locus)
     enf_pred = extract_enformer_predictions(enfref_dir=reference_epigenome_dir, chr_num=chrom, locs=bins_coords)
     bins_to_take = slice_bins(locus)
-    bins_to_aggregate = [bins_to_take[0] - pad_bins, bins_to_take[1] + pad_bins] # add one more bin upstream and downstrea
-    print(f"INFO - After padding bins with {pad_bins}: {bins_to_aggregate}")
+    bins_to_aggregate = [bins_to_take[0] - pad_bins, bins_to_take[1] + pad_bins]
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", category=RuntimeWarning)
         try:
